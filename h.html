@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>New Year 2026 Countdown</title>
+<style>
+  body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background: radial-gradient(circle, #0f0c29, #302b63, #24243e);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    overflow: hidden;
+  }
+  h1 {
+    font-size: 4rem;
+    margin: 0;
+  }
+  #countdown {
+    font-size: 3rem;
+    margin: 20px 0;
+  }
+  .firework {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background: #ff0;
+    border-radius: 50%;
+    animation: explode 1s ease-out forwards;
+  }
+  @keyframes explode {
+    0% { transform: scale(0) translate(0,0); opacity: 1; }
+    100% { transform: scale(1.5) translate(var(--x), var(--y)); opacity: 0; }
+  }
+</style>
+</head>
+<body>
+<h1>🎉 Happy New Year 2026! 🎉</h1>
+<div id="countdown">10</div>
+
+<script>
+let countdownEl = document.getElementById('countdown');
+let countdown = 10;
+
+let timer = setInterval(() => {
+  countdown--;
+  if(countdown <= 0){
+    clearInterval(timer);
+    countdownEl.textContent = "🥳🎆 It's 2026! 🎆🥳";
+    launchFireworks();
+  } else {
+    countdownEl.textContent = countdown;
+  }
+}, 1000);
+
+// Fireworks effect
+function launchFireworks(){
+  for(let i=0; i<50; i++){
+    let firework = document.createElement('div');
+    firework.className = 'firework';
+    firework.style.left = Math.random()*100 + 'vw';
+    firework.style.top = Math.random()*100 + 'vh';
+    firework.style.setProperty('--x', (Math.random()*200-100)+'px');
+    firework.style.setProperty('--y', (Math.random()*200-100)+'px');
+    firework.style.background = `hsl(${Math.random()*360}, 100%, 50%)`;
+    document.body.appendChild(firework);
+    setTimeout(()=> firework.remove(), 1000);
+  }
+  setInterval(()=> launchFireworks(), 2000); // repeat fireworks every 2 seconds
+}
+</script>
+</body>
+</html>
